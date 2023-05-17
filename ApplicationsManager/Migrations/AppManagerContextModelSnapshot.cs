@@ -48,19 +48,19 @@ namespace ApplicationsManager.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2023, 5, 13, 15, 35, 34, 84, DateTimeKind.Local).AddTicks(5131),
+                            CreatedDate = new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2962),
                             Name = "صندوقک"
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTime(2023, 5, 13, 15, 35, 34, 84, DateTimeKind.Local).AddTicks(5137),
+                            CreatedDate = new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2967),
                             Name = "ویژیتو"
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedDate = new DateTime(2023, 5, 13, 15, 35, 34, 84, DateTimeKind.Local).AddTicks(5139),
+                            CreatedDate = new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2968),
                             Name = "سفارشگیر"
                         });
                 });
@@ -126,7 +126,7 @@ namespace ApplicationsManager.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2023, 5, 13, 15, 35, 34, 84, DateTimeKind.Local).AddTicks(4937),
+                            CreatedDate = new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2813),
                             Mobile = "09364142953",
                             Name = "احمدی",
                             Password = "123456",
@@ -135,7 +135,7 @@ namespace ApplicationsManager.Migrations
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTime(2023, 5, 13, 15, 35, 34, 84, DateTimeKind.Local).AddTicks(4955),
+                            CreatedDate = new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2830),
                             Mobile = "09364142953",
                             Name = "اکبری",
                             Password = "123456",
@@ -144,7 +144,7 @@ namespace ApplicationsManager.Migrations
                         new
                         {
                             Id = 3L,
-                            CreatedDate = new DateTime(2023, 5, 13, 15, 35, 34, 84, DateTimeKind.Local).AddTicks(4957),
+                            CreatedDate = new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2831),
                             Mobile = "09364142953",
                             Name = "حسینی",
                             Password = "123456",
@@ -196,7 +196,7 @@ namespace ApplicationsManager.Migrations
                         {
                             Id = 1L,
                             ApplicationTypeId = 1L,
-                            CreatedDate = new DateTime(2023, 5, 13, 15, 35, 34, 84, DateTimeKind.Local).AddTicks(5170),
+                            CreatedDate = new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2988),
                             CustomerId = 1L,
                             EndTime = new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsActive = true,
@@ -277,6 +277,56 @@ namespace ApplicationsManager.Migrations
                             Days = 30,
                             MaxUsers = 5,
                             Name = "یکماهه"
+                        });
+                });
+
+            modelBuilder.Entity("ApplicationsManager.Entitiy.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("45be2da5-932e-49ff-b923-ae9b34b81512"),
+                            FName = "حمید",
+                            LName = "اکبری",
+                            Password = "123456",
+                            Role = 1,
+                            Username = "hamid"
+                        },
+                        new
+                        {
+                            Id = new Guid("bb07c0ab-ff0d-496e-8341-3a404f211a15"),
+                            FName = "میلاد",
+                            LName = "انجم شعاع",
+                            Password = "123456",
+                            Role = 0,
+                            Username = "milad"
                         });
                 });
 

@@ -46,7 +46,7 @@ namespace ApplicationsManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubscriptionPlan",
+                name: "SubscriptionPlans",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -58,7 +58,45 @@ namespace ApplicationsManager.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubscriptionPlan", x => x.Id);
+                    table.PrimaryKey("PK_SubscriptionPlans", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicationVersions",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ApplicationTypeId = table.Column<long>(type: "bigint", nullable: true),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    code = table.Column<int>(type: "int", nullable: false),
+                    IsCritical = table.Column<bool>(type: "bit", nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationVersions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ApplicationVersions_ApplicationTypes_ApplicationTypeId",
+                        column: x => x.ApplicationTypeId,
+                        principalTable: "ApplicationTypes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -91,15 +129,15 @@ namespace ApplicationsManager.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Subscriptions_SubscriptionPlan_planId",
+                        name: "FK_Subscriptions_SubscriptionPlans_planId",
                         column: x => x.planId,
-                        principalTable: "SubscriptionPlan",
+                        principalTable: "SubscriptionPlans",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubscriptionActivity",
+                name: "SubscriptionActivities",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -112,9 +150,9 @@ namespace ApplicationsManager.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubscriptionActivity", x => x.Id);
+                    table.PrimaryKey("PK_SubscriptionActivities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubscriptionActivity_Subscriptions_SubscriptionId",
+                        name: "FK_SubscriptionActivities_Subscriptions_SubscriptionId",
                         column: x => x.SubscriptionId,
                         principalTable: "Subscriptions",
                         principalColumn: "Id",
@@ -126,9 +164,9 @@ namespace ApplicationsManager.Migrations
                 columns: new[] { "Id", "CreatedDate", "Description", "Name" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 13, 14, 24, 19, 147, DateTimeKind.Local).AddTicks(5151), null, "صندوقک" },
-                    { 2L, new DateTime(2023, 5, 13, 14, 24, 19, 147, DateTimeKind.Local).AddTicks(5156), null, "ویژیتو" },
-                    { 3L, new DateTime(2023, 5, 13, 14, 24, 19, 147, DateTimeKind.Local).AddTicks(5157), null, "سفارشگیر" }
+                    { 1L, new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2962), null, "صندوقک" },
+                    { 2L, new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2967), null, "ویژیتو" },
+                    { 3L, new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2968), null, "سفارشگیر" }
                 });
 
             migrationBuilder.InsertData(
@@ -136,13 +174,13 @@ namespace ApplicationsManager.Migrations
                 columns: new[] { "Id", "CreatedDate", "Mobile", "Name", "Password", "Username" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 13, 14, 24, 19, 147, DateTimeKind.Local).AddTicks(5012), "09364142953", "احمدی", "123456", "ahmadi" },
-                    { 2L, new DateTime(2023, 5, 13, 14, 24, 19, 147, DateTimeKind.Local).AddTicks(5027), "09364142953", "اکبری", "123456", "akbari" },
-                    { 3L, new DateTime(2023, 5, 13, 14, 24, 19, 147, DateTimeKind.Local).AddTicks(5029), "09364142953", "حسینی", "123456", "hosseini" }
+                    { 1L, new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2813), "09364142953", "احمدی", "123456", "ahmadi" },
+                    { 2L, new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2830), "09364142953", "اکبری", "123456", "akbari" },
+                    { 3L, new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2831), "09364142953", "حسینی", "123456", "hosseini" }
                 });
 
             migrationBuilder.InsertData(
-                table: "SubscriptionPlan",
+                table: "SubscriptionPlans",
                 columns: new[] { "Id", "Days", "Description", "MaxUsers", "Name" },
                 values: new object[,]
                 {
@@ -151,13 +189,27 @@ namespace ApplicationsManager.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "FName", "LName", "Password", "Role", "Username" },
+                values: new object[,]
+                {
+                    { new Guid("45be2da5-932e-49ff-b923-ae9b34b81512"), "حمید", "اکبری", "123456", 1, "hamid" },
+                    { new Guid("bb07c0ab-ff0d-496e-8341-3a404f211a15"), "میلاد", "انجم شعاع", "123456", 0, "milad" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Subscriptions",
                 columns: new[] { "Id", "ApplicationTypeId", "CreatedDate", "CustomerId", "EndTime", "IsActive", "StartTime", "planId" },
-                values: new object[] { 1L, 1L, new DateTime(2023, 5, 13, 14, 24, 19, 147, DateTimeKind.Local).AddTicks(5178), 1L, new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), true, new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 1L });
+                values: new object[] { 1L, 1L, new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2988), 1L, new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), true, new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 1L });
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubscriptionActivity_SubscriptionId",
-                table: "SubscriptionActivity",
+                name: "IX_ApplicationVersions_ApplicationTypeId",
+                table: "ApplicationVersions",
+                column: "ApplicationTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubscriptionActivities_SubscriptionId",
+                table: "SubscriptionActivities",
                 column: "SubscriptionId");
 
             migrationBuilder.CreateIndex(
@@ -180,7 +232,13 @@ namespace ApplicationsManager.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "SubscriptionActivity");
+                name: "ApplicationVersions");
+
+            migrationBuilder.DropTable(
+                name: "SubscriptionActivities");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Subscriptions");
@@ -192,7 +250,7 @@ namespace ApplicationsManager.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "SubscriptionPlan");
+                name: "SubscriptionPlans");
         }
     }
 }

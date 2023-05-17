@@ -1,8 +1,8 @@
 ﻿namespace ApplicationsManager.DTO
 {
-    public class UserTokenDTO
+    public class CustomerDTO
     {
-        public Guid UserId { get; set; }
+        public long UserId { get; set; }
         public string Token { get; set; }
     }
 

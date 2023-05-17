@@ -33,7 +33,7 @@ namespace ApplicationsManager.Controllers
             {
                 return StatusCode(StatusCodes.Status404NotFound, "Invalid username or password.");
             }
-            return Ok(new UserTokenDTO
+            return Ok(new CustomerDTO
             {
                 Token = TokenAuthorizationService.MakeToken(username,password),
                 UserId = user.Id,

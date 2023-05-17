@@ -17,6 +17,7 @@ namespace ApplicationsManager
         public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
         public DbSet<ApplicationVersion> ApplicationVersions { get; set; }
 
+        public DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -50,6 +51,11 @@ namespace ApplicationsManager
             modelBuilder.Entity<SubscriptionPlan>().HasData(
            new SubscriptionPlan { Id = 1, Name = "ده روزه",Days=10,MaxUsers=5 },
            new SubscriptionPlan { Id = 2, Name = "یکماهه", Days = 30, MaxUsers = 5 });
+
+            modelBuilder.Entity<User>().HasData(
+                 new User { Id = Guid.NewGuid() ,FName = "حمید", LName = "اکبری", Username = "hamid", Password = "123456", Role = UserRole.User },
+                new User { Id = Guid.NewGuid(), FName = "میلاد", LName = "انجم شعاع", Username = "milad", Password = "123456", Role = UserRole.Admin }
+                );
         }
     }
 }
