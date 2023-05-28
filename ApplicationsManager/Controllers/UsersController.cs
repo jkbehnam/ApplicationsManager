@@ -1,6 +1,5 @@
 ﻿using ApplicationsManager.DTO;
 using CustomerClub.Infrastracture.Utilities.TokenAuthorizationServices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +19,7 @@ namespace ApplicationsManager.Controllers
         [HttpGet("GetToken")]
         public async Task<ActionResult<UserTokenDTO>> GetToken(string username, string password)
         {
-           // var user = await appManagerContext.Users.FindAsync(username, password);
+            // var user = await appManagerContext.Users.FindAsync(username, password);
             var user = await appManagerContext.Users
                .Where(u => u.Username == username && u.Password == password)
                .FirstOrDefaultAsync();
@@ -32,6 +31,8 @@ namespace ApplicationsManager.Controllers
             {
                 Token = TokenAuthorizationService.MakeToken(username, password),
                 UserId = user.Id,
+                FName = user.FName,
+                LName= user.LName
             });
         }
 

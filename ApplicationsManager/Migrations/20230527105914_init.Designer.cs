@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApplicationsManager.Migrations
 {
     [DbContext(typeof(AppManagerContext))]
-    [Migration("20230517111951_init")]
+    [Migration("20230527105914_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -27,11 +27,8 @@ namespace ApplicationsManager.Migrations
 
             modelBuilder.Entity("ApplicationsManager.Entitiy.ApplicationType", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    b.Property<string>("AppEName")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -39,31 +36,40 @@ namespace ApplicationsManager.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("AppEName");
 
                     b.ToTable("ApplicationTypes");
 
                     b.HasData(
                         new
                         {
+                            AppEName = "47",
+                            CreatedDate = new DateTime(2023, 5, 27, 14, 29, 14, 661, DateTimeKind.Local).AddTicks(3392),
                             Id = 1L,
-                            CreatedDate = new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2962),
                             Name = "صندوقک"
                         },
                         new
                         {
+                            AppEName = "41",
+                            CreatedDate = new DateTime(2023, 5, 27, 14, 29, 14, 661, DateTimeKind.Local).AddTicks(3396),
                             Id = 2L,
-                            CreatedDate = new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2967),
                             Name = "ویژیتو"
                         },
                         new
                         {
+                            AppEName = "52",
+                            CreatedDate = new DateTime(2023, 5, 27, 14, 29, 14, 661, DateTimeKind.Local).AddTicks(3398),
                             Id = 3L,
-                            CreatedDate = new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2968),
                             Name = "سفارشگیر"
                         });
                 });
@@ -76,8 +82,8 @@ namespace ApplicationsManager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long?>("ApplicationTypeId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ApplicationEName")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsCritical")
                         .HasColumnType("bit");
@@ -93,32 +99,61 @@ namespace ApplicationsManager.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationTypeId");
+                    b.HasIndex("ApplicationEName");
 
                     b.ToTable("ApplicationVersions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            ApplicationEName = "47",
+                            IsCritical = false,
+                            ReleaseDate = new DateTime(2023, 5, 27, 10, 59, 14, 661, DateTimeKind.Utc).AddTicks(3368),
+                            code = 1,
+                            name = "13.2.1"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            ApplicationEName = "47",
+                            IsCritical = false,
+                            ReleaseDate = new DateTime(2023, 5, 27, 10, 59, 14, 661, DateTimeKind.Utc).AddTicks(3371),
+                            code = 2,
+                            name = "14.2.1"
+                        });
                 });
 
             modelBuilder.Entity("ApplicationsManager.Entitiy.Customer", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    b.Property<string>("BarnchName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("MarketName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Mobile")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("OwnerName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
+                    b.Property<string>("State")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -128,30 +163,36 @@ namespace ApplicationsManager.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
-                            CreatedDate = new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2813),
+                            Id = new Guid("98be75ba-0227-4f55-affa-18d39c634685"),
+                            BarnchName = "مطهری",
+                            City = "کرمان",
+                            CreatedDate = new DateTime(2023, 5, 27, 14, 29, 14, 661, DateTimeKind.Local).AddTicks(3230),
+                            MarketName = "خوارو بار فروشی احمدی",
                             Mobile = "09364142953",
-                            Name = "احمدی",
-                            Password = "123456",
-                            Username = "ahmadi"
+                            OwnerName = "احمدی",
+                            State = "کرمان"
                         },
                         new
                         {
-                            Id = 2L,
-                            CreatedDate = new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2830),
+                            Id = new Guid("4c9862c1-6777-45b6-8581-2151898af73e"),
+                            BarnchName = "مطهری",
+                            City = "کرمان",
+                            CreatedDate = new DateTime(2023, 5, 27, 14, 29, 14, 661, DateTimeKind.Local).AddTicks(3250),
+                            MarketName = "سوپرمارکت احد",
                             Mobile = "09364142953",
-                            Name = "اکبری",
-                            Password = "123456",
-                            Username = "akbari"
+                            OwnerName = "اکبری",
+                            State = "کرمان"
                         },
                         new
                         {
-                            Id = 3L,
-                            CreatedDate = new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2831),
+                            Id = new Guid("519665be-1e28-4d25-8cf3-2ce95695d738"),
+                            BarnchName = "مطهری",
+                            City = "تهران",
+                            CreatedDate = new DateTime(2023, 5, 27, 14, 29, 14, 661, DateTimeKind.Local).AddTicks(3253),
+                            MarketName = "سوپرمارکت صالحی",
                             Mobile = "09364142953",
-                            Name = "حسینی",
-                            Password = "123456",
-                            Username = "hosseini"
+                            OwnerName = "صالحی",
+                            State = "تهران"
                         });
                 });
 
@@ -163,14 +204,19 @@ namespace ApplicationsManager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("ApplicationTypeId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("AppEName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("CustomerId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DeviceId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
@@ -178,67 +224,21 @@ namespace ApplicationsManager.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<long?>("PlanId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("planId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationTypeId");
+                    b.HasIndex("AppEName");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("planId");
+                    b.HasIndex("PlanId");
 
                     b.ToTable("Subscriptions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            ApplicationTypeId = 1L,
-                            CreatedDate = new DateTime(2023, 5, 17, 14, 49, 51, 613, DateTimeKind.Local).AddTicks(2988),
-                            CustomerId = 1L,
-                            EndTime = new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsActive = true,
-                            StartTime = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            planId = 1L
-                        });
-                });
-
-            modelBuilder.Entity("ApplicationsManager.Entitiy.SubscriptionActivity", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("DeviceCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceModel")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastUseTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("SubscriptionId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("VersionCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubscriptionId");
-
-                    b.ToTable("SubscriptionActivities");
                 });
 
             modelBuilder.Entity("ApplicationsManager.Entitiy.SubscriptionPlan", b =>
@@ -255,9 +255,6 @@ namespace ApplicationsManager.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MaxUsers")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -271,14 +268,12 @@ namespace ApplicationsManager.Migrations
                         {
                             Id = 1L,
                             Days = 10,
-                            MaxUsers = 5,
                             Name = "ده روزه"
                         },
                         new
                         {
                             Id = 2L,
                             Days = 30,
-                            MaxUsers = 5,
                             Name = "یکماهه"
                         });
                 });
@@ -315,7 +310,7 @@ namespace ApplicationsManager.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("45be2da5-932e-49ff-b923-ae9b34b81512"),
+                            Id = new Guid("0178d296-9c94-448e-8ced-9c09d744b510"),
                             FName = "حمید",
                             LName = "اکبری",
                             Password = "123456",
@@ -324,7 +319,7 @@ namespace ApplicationsManager.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bb07c0ab-ff0d-496e-8341-3a404f211a15"),
+                            Id = new Guid("dd37fb26-5dcf-43ab-bc34-88d3a0965f40"),
                             FName = "میلاد",
                             LName = "انجم شعاع",
                             Password = "123456",
@@ -337,16 +332,16 @@ namespace ApplicationsManager.Migrations
                 {
                     b.HasOne("ApplicationsManager.Entitiy.ApplicationType", "ApplicationType")
                         .WithMany("ApplicationVersions")
-                        .HasForeignKey("ApplicationTypeId");
+                        .HasForeignKey("ApplicationEName");
 
                     b.Navigation("ApplicationType");
                 });
 
             modelBuilder.Entity("ApplicationsManager.Entitiy.Subscription", b =>
                 {
-                    b.HasOne("ApplicationsManager.Entitiy.ApplicationType", "ApplicationType")
+                    b.HasOne("ApplicationsManager.Entitiy.ApplicationType", "applicationType")
                         .WithMany("Subscriptions")
-                        .HasForeignKey("ApplicationTypeId")
+                        .HasForeignKey("AppEName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -358,26 +353,13 @@ namespace ApplicationsManager.Migrations
 
                     b.HasOne("ApplicationsManager.Entitiy.SubscriptionPlan", "SubscriptionPlan")
                         .WithMany("Subscriptions")
-                        .HasForeignKey("planId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationType");
+                        .HasForeignKey("PlanId");
 
                     b.Navigation("Customer");
 
                     b.Navigation("SubscriptionPlan");
-                });
 
-            modelBuilder.Entity("ApplicationsManager.Entitiy.SubscriptionActivity", b =>
-                {
-                    b.HasOne("ApplicationsManager.Entitiy.Subscription", "Subscription")
-                        .WithMany("SubscriptionActivities")
-                        .HasForeignKey("SubscriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Subscription");
+                    b.Navigation("applicationType");
                 });
 
             modelBuilder.Entity("ApplicationsManager.Entitiy.ApplicationType", b =>
@@ -390,11 +372,6 @@ namespace ApplicationsManager.Migrations
             modelBuilder.Entity("ApplicationsManager.Entitiy.Customer", b =>
                 {
                     b.Navigation("Subscriptions");
-                });
-
-            modelBuilder.Entity("ApplicationsManager.Entitiy.Subscription", b =>
-                {
-                    b.Navigation("SubscriptionActivities");
                 });
 
             modelBuilder.Entity("ApplicationsManager.Entitiy.SubscriptionPlan", b =>

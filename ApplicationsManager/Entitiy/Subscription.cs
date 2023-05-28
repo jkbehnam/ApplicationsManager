@@ -9,21 +9,23 @@ namespace ApplicationsManager.Entitiy
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
         [ForeignKey("CustomerId")]
-        public Customer Customer { get; set; }
-        public long CustomerId { get; set; }
-        [ForeignKey("ApplicationTypeId")]
-        public ApplicationType ApplicationType { get; set; }
-        public long ApplicationTypeId { get; set; }
-        [ForeignKey("planId")]
-        public SubscriptionPlan SubscriptionPlan { get; set; }
-        public long planId { get; set; }
+        public Customer? Customer { get; set; }
+        public Guid? CustomerId { get; set; }
+        [ForeignKey("AppEName")]
+        public ApplicationType? applicationType { get; set; }
 
+        public string? AppEName { get; set; }
+
+        [ForeignKey("PlanId")]
+
+        public SubscriptionPlan? SubscriptionPlan { get; set; }
+        public long? PlanId { get; set; }
+
+        public string? DeviceId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public Boolean IsActive { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
-
-        public ICollection<SubscriptionActivity> SubscriptionActivities { get; set; } = new List<SubscriptionActivity>();
+        public Boolean? IsActive { get; set; }
+        public DateTime? CreatedDate { get; set; } = DateTime.Now;
 
     }
 }

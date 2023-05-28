@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApplicationsManager.Entitiy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using ReadRasisToken;
 using System.Globalization;
@@ -8,12 +9,15 @@ namespace Api.Endpoint.Helpers.Authorizations
 {
     public class BasicAuthenticationFilter : Attribute, IActionFilter
     {
-        public BasicAuthenticationFilter(string role)
+  
+
+        public BasicAuthenticationFilter(UserRole role)
         {
             Role = role;
         }
 
-        public string Role { get; }
+    
+        public UserRole Role { get; }
 
         public void OnActionExecuting(ActionExecutingContext context)
         {

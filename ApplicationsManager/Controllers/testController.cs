@@ -1,4 +1,5 @@
 ﻿using Api.Endpoint.Helpers.Authorizations;
+using ApplicationsManager.Entitiy;
 using CustomerClub.Infrastracture.Utilities.TokenAuthorizationServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApplicationsManager.Controllers
 {
-    [BasicAuthenticationFilter("access")]
+    [BasicAuthenticationFilter(UserRole.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class testController : ControllerBase

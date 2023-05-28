@@ -1,8 +1,10 @@
-﻿namespace Api.Endpoint.Helpers.Authorizations
+﻿using ApplicationsManager.Entitiy;
+
+namespace Api.Endpoint.Helpers.Authorizations
 {
     public class UPCheck
     {
-        public static bool Login(string username, string password, string role)
+        public static bool Login(string username, string password, UserRole role)
         {
             //using (RasisSoftwareSolutionEntities entities = new RasisSoftwareSolutionEntities())
             //{
